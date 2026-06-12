@@ -24,7 +24,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(tomlplusplus)
 
 add_executable(hyperISP
-    src/main.cu
+    src/main.cpp
     src/config.cpp
     src/blocks/dpc.cu
     src/blocks/blc.cu
