@@ -1,0 +1,109 @@
+BasedOnStyle: GNU
+Language: Cpp
+Standard: c++20
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ContinuationIndentWidth: 4
+ConstructorInitializerIndentWidth: 4
+NamespaceIndentation: None
+IndentCaseLabels: true
+AccessModifierOffset: -2
+IndentPPDirectives: BeforeHash
+ColumnLimit: 100
+AlwaysBreakAfterReturnType: None
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterCaseLabel: true
+  AfterClass: true
+  AfterControlStatement: true
+  AfterEnum: true
+  AfterFunction: true
+  AfterNamespace: true
+  AfterObjCDeclaration: true
+  AfterStruct: true
+  AfterUnion: true
+  BeforeCatch: true
+  BeforeElse: true
+  BeforeLambdaBody: true
+  BeforeWhile: true
+  IndentBraces: false
+  SplitEmptyFunction: true
+  SplitEmptyRecord: true
+  SplitEmptyNamespace: true
+BreakConstructorInitializers: BeforeColon
+BreakInheritanceList: BeforeColon
+AllowShortBlocksOnASingleLine: Empty
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortEnumsOnASingleLine: false
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: false
+AlignConsecutiveMacros: false
+AlignEscapedNewlines: Left
+AlignOperands: Align
+AlignTrailingComments: true
+SpaceBeforeParens: ControlStatements
+SpaceBeforeAssignmentOperators: true
+SpaceInEmptyParentheses: false
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
+SpacesInCStyleCastParentheses: false
+SpaceBeforeRangeBasedForLoopColon: true
+SpaceAfterTemplateKeyword: true
+SpaceBeforeCpp11BracedList: false
+PointerAlignment: Left
+ReferenceAlignment: Left
+DerivePointerAlignment: false
+AlwaysBreakBeforeMultilineStrings: false
+BreakBeforeBinaryOperators: None
+BreakBeforeTernaryOperators: true
+AllowAllParametersOfDeclarationOnNextLine: true
+AllowAllArgumentsOnNextLine: true
+BinPackArguments: true
+BinPackParameters: true
+BreakStringLiterals: true
+SortIncludes: CaseInsensitive
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex:           '^".*\.h"$'
+    Priority:        1
+  - Regex:           '^<[a-z_]+>$'
+    Priority:        2
+  - Regex:           '^<c[a-z]+>$'
+    Priority:        3
+  - Regex:           '^<.*>$'
+    Priority:        4
+ReflowComments: true
+SpacesBeforeTrailingComments: 2
+PenaltyBreakBeforeFirstCallParameter: 19
+PenaltyBreakString: 1000
+PenaltyExcessCharacter: 1000000
+PenaltyReturnTypeOnItsOwnLine: 60
+CompactNamespaces: false
+FixNamespaceComments: true
+KeepEmptyLinesAtTheStartOfBlocks: false
+MaxEmptyLinesToKeep: 1
+SortUsingDeclarations: true
+SpaceAfterCStyleCast: false
+IndentRequiresClause: true
+AlignAfterOpenBracket: Align
+LambdaBodyIndentation: OuterScope
+PackConstructorInitializers: NextLine
+EmptyLineBeforeAccessModifier: LogicalBlock
+SeparateDefinitionBlocks: Leave
+IncludeIsMainRegex: '(Test)?$'
+ConstructorInitializerAllOnOneLineOrOnePerLine: false
+AllowShortLambdasOnASingleLine: All
+IndentGotoLabels: true
+SpaceInEmptyBlock: false
+SpacesInLineCommentPrefix:
+  Minimum: 1
+  Maximum: -1
+BitFieldColonSpacing: Both
+InsertBraces: false
+RemoveBracesLLVM: false
+AttributeMacros: []
+QualifierAlignment: Leave

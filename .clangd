@@ -1,0 +1,16 @@
+CompileFlags:
+  Add:
+    - -I/usr/local/cuda-13.3/include
+    - -I/home/moe/myProjects/cudaISP/cudaISP/include
+    - -isystem
+    - /home/moe/myProjects/cudaISP/cudaISP/build/_deps/tomlplusplus-src/include
+    - --cuda-path=/usr/local/cuda-13.3
+    - --cuda-gpu-arch=sm_120
+  Remove:
+    - -forward-unknown-to-host-compiler
+    - --generate-code*
+    - --options-file
+    - "*.rsp"
+    - -rdc=true
+    - -x
+    - cu
