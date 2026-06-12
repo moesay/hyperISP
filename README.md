@@ -79,25 +79,25 @@ Mirroring the fast-openISP pipeline, the following stages are planned:
 
 Running times for each stage on a 1920x1080, 12-bit RGGB frame, compared against fast-openISP:
 
-| Module | fast-openISP (CPU) | HyperISP (GPU) | Speedup |
+| Block| fast-openISP | HyperISP | Speedup |
 |:------:|:-------------------:|:----------------:|:-------:|
-| DPC    |                      |                  |         |
-| BLC    |                     |                  |         |
-| AAF    |                     |                  |         |
-| AWB    |                     |                  |         |
-| CNF    |                     |                  |         |
-| CFA    |                     |                  |         |
-| CCM    |                     |                  |         |
-| GAC    |                     |                  |         |
-| CSC    |                     |                  |         |
-| NLM    |                     |                  |         |
-| BNF    |                     |                  |         |
-| CEH    |                     |                  |         |
-| EEH    |                     |                  |         |
-| FCS    |                     |                  |         |
-| HSC    |                     |                  |         |
-| BCC    |                     |                  |         |
-| **End-to-end** |             |                  |         |
+| DPC    | 0.29s                    | 1.9ms                  | 152.6x         |
+| BLC    | 0.02s                    | 0.024ms                 | 833.3x         |
+| AAF    | 0.08s                    |[x]                  |         |
+| AWB    | 0.02s                    |[x]                  |         |
+| CNF    | 0.25s                    |[x]                  |         |
+| CFA    | 0.20s                    |[x]                  |         |
+| CCM    | 0.06s                    |[x]                  |         |
+| GAC    | 0.07s                    |[x]                  |         |
+| CSC    | 0.06s                    |[x]                  |         |
+| NLM    | 5.37s                    |[x]                  |         |
+| BNF    | 0.75s                    |[x]                  |         |
+| CEH    | 0.14s                    |[x]                  |         |
+| EEH    | 0.24s                    |[x]                  |         |
+| FCS    | 0.08s                    |[x]                  |         |
+| HSC    | 0.07s                    |[x]                  |         |
+| BCC    | 0.03s                    |[x]                  |         |
+| **End-to-end** | 7.82s             |[x]                  |         |
 
 ## Quick start
 
