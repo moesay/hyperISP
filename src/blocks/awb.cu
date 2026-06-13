@@ -1,4 +1,3 @@
-#include <cctype>
 #include <stdexcept>
 
 #include "blocks/awb.hpp"
