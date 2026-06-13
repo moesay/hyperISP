@@ -72,3 +72,33 @@ save_raw(PitchedFrame<uint16_t>& frame, const std::string& path)
         }
     }
 }
+
+template <typename T>
+inline void
+save_rgb(PitchedFrame<T>& frame, const std::string& path)
+{
+    std::ofstream f(path, std::ios::binary);
+    if (!f.is_open())
+    {
+        throw std::runtime_error("save_rgb: cannot open " + path + " for writing");
+    }
+
+    const uint32_t channels = frame.channels();
+    std::vector<T> row(static_cast<size_t>(frame.width()) * channels);
+
+    for (uint32_t y = 0; y < frame.height(); ++y)
+    {
+        for (uint32_t x = 0; x < frame.width(); ++x)
+        {
+            for (uint32_t c = 0; c < channels; ++c)
+            {
+                row[x * channels + c] = frame.at(y, x, c);
+            }
+        }
+        if (!f.write(reinterpret_cast<const char*>(row.data()),
+                     static_cast<std::streamsize>(row.size() * sizeof(T))))
+        {
+            throw std::runtime_error("save_rgb: write error at row " + std::to_string(y));
+        }
+    }
+}
