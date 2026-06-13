@@ -4,6 +4,7 @@
 #include <vector>
 
 #include <blocks/aaf.hpp>
+#include <blocks/awb.hpp>
 #include <blocks/blc.hpp>
 #include <blocks/dpc.hpp>
 #include <config.hpp>
@@ -13,7 +14,7 @@
 #include <pipeline_data.hpp>
 
 static std::vector<std::unique_ptr<IspBlock>>
-build_pipeline(const IspConfig& cfg, cudaStream_t stream)
+build_pipeline(const IspConfig& cfg, cudaStream_t stream = 0)
 {
     std::vector<std::unique_ptr<IspBlock>> pipeline;
 
@@ -29,6 +30,7 @@ build_pipeline(const IspConfig& cfg, cudaStream_t stream)
     add_if_enabled(std::make_unique<DpcBlock>(cfg, stream));
     add_if_enabled(std::make_unique<BlcBlock>(cfg, stream));
     add_if_enabled(std::make_unique<AafBlock>(cfg, stream));
+    add_if_enabled(std::make_unique<AwbBlock>(cfg, stream));
 
     return pipeline;
 }
