@@ -36,20 +36,8 @@ dpc_kernel(FrameView<uint16_t> in, FrameView<uint16_t> out, DpcKernelParams para
     if (x >= in.width || y >= in.height)
         return;
 
-    const uint32_t y_lo = (y >= 2) ? y - 2 : y + 2;
-    const uint32_t y_hi = (y + 2 < in.height) ? y + 2 : y - 2;
-    const uint32_t x_lo = (x >= 2) ? x - 2 : x + 2;
-    const uint32_t x_hi = (x + 2 < in.width) ? x + 2 : x - 2;
-
     const int32_t curr = in.at(y, x);
-    const int32_t top = in.at(y_lo, x);
-    const int32_t bottom = in.at(y_hi, x);
-    const int32_t left = in.at(y, x_lo);
-    const int32_t right = in.at(y, x_hi);
-    const int32_t top_left = in.at(y_lo, x_lo);
-    const int32_t top_right = in.at(y_lo, x_hi);
-    const int32_t bottom_left = in.at(y_hi, x_lo);
-    const int32_t bottom_right = in.at(y_hi, x_hi);
+    const auto n = in.neighbors8(y, x);
 
     const int32_t threshold = params.diff_threshold;
 
@@ -60,36 +48,36 @@ dpc_kernel(FrameView<uint16_t> in, FrameView<uint16_t> out, DpcKernelParams para
        this.
     */
     const bool is_dead =
-        (abs(curr - top) > threshold) && (abs(curr - bottom) > threshold) &&
-        (abs(curr - left) > threshold) && (abs(curr - right) > threshold) &&
-        (abs(curr - top_left) > threshold) && (abs(curr - top_right) > threshold) &&
-        (abs(curr - bottom_left) > threshold) && (abs(curr - bottom_right) > threshold);
+        (abs(curr - n.top) > threshold) && (abs(curr - n.bottom) > threshold) &&
+        (abs(curr - n.left) > threshold) && (abs(curr - n.right) > threshold) &&
+        (abs(curr - n.top_left) > threshold) && (abs(curr - n.top_right) > threshold) &&
+        (abs(curr - n.bottom_left) > threshold) && (abs(curr - n.bottom_right) > threshold);
 
     uint16_t result = curr;
     if (is_dead)
     {
-        const int32_t vert_diff = abs(2 * curr - top - bottom);
-        const int32_t hori_diff = abs(2 * curr - left - right);
-        const int32_t left_diag_diff = abs(2 * curr - top_left - bottom_right);
-        const int32_t right_diag_diff = abs(2 * curr - bottom_left - top_right);
+        const int32_t vert_diff = abs(2 * curr - n.top - n.bottom);
+        const int32_t hori_diff = abs(2 * curr - n.left - n.right);
+        const int32_t left_diag_diff = abs(2 * curr - n.top_left - n.bottom_right);
+        const int32_t right_diag_diff = abs(2 * curr - n.bottom_left - n.top_right);
 
         int32_t best = vert_diff;
-        int32_t avg = (top + bottom) >> 1;
+        int32_t avg = (n.top + n.bottom) >> 1;
 
         if (hori_diff < best)
         {
             best = hori_diff;
-            avg = (left + right) >> 1;
+            avg = (n.left + n.right) >> 1;
         }
         if (left_diag_diff < best)
         {
             best = left_diag_diff;
-            avg = (top_left + bottom_right) >> 1;
+            avg = (n.top_left + n.bottom_right) >> 1;
         }
         if (right_diag_diff < best)
         {
             best = right_diag_diff;
-            avg = (bottom_left + top_right) >> 1;
+            avg = (n.bottom_left + n.top_right) >> 1;
         }
 
         result = static_cast<uint16_t>(avg);
