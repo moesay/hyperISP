@@ -142,21 +142,25 @@ template <typename T> class PitchedFrame
     {
         return data_;
     }
+
     size_t
     pitch() const
     {
         return pitch_;
     }
+
     uint32_t
     width() const
     {
         return width_;
     }
+
     uint32_t
     height() const
     {
         return height_;
     }
+
     uint32_t
     channels() const
     {
