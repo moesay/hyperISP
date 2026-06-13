@@ -3,6 +3,7 @@
 #include <print>
 #include <vector>
 
+#include <blocks/aaf.hpp>
 #include <blocks/blc.hpp>
 #include <blocks/dpc.hpp>
 #include <config.hpp>
@@ -27,6 +28,7 @@ build_pipeline(const IspConfig& cfg, cudaStream_t stream)
 
     add_if_enabled(std::make_unique<DpcBlock>(cfg, stream));
     add_if_enabled(std::make_unique<BlcBlock>(cfg, stream));
+    add_if_enabled(std::make_unique<AafBlock>(cfg, stream));
 
     return pipeline;
 }
