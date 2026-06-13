@@ -11,6 +11,12 @@
    For convenience, both FrameView and PitchedFrame uses (row, column) accessing
    hence y and x, not x and y. Usually, x y make more sense but in this context, row col is the way
 */
+template <typename T> struct NeighborPixels8
+{
+    T top, bottom, left, right;
+    T top_left, top_right, bottom_left, bottom_right;
+};
+
 template <typename T> struct FrameView
 {
     T* data;
@@ -37,6 +43,22 @@ template <typename T> struct FrameView
     at(uint32_t y, uint32_t x, uint32_t c) const
     {
         return row_ptr(y)[x * channels + c];
+    }
+
+    /*
+        Returns the 8 neighbors at +/-step along each axis. If a neighbor would fall outside
+        the frame, it folds back to the opposite direction at the same step
+    */
+    __host__ __device__ __forceinline__ NeighborPixels8<T>
+    neighbors8(uint32_t y, uint32_t x, uint32_t step = 2) const
+    {
+        const uint32_t y_lo = (y >= step) ? y - step : y + step;
+        const uint32_t y_hi = (y + step < height) ? y + step : y - step;
+        const uint32_t x_lo = (x >= step) ? x - step : x + step;
+        const uint32_t x_hi = (x + step < width) ? x + step : x - step;
+
+        return { at(y_lo, x),    at(y_hi, x),    at(y, x_lo),    at(y, x_hi),
+                 at(y_lo, x_lo), at(y_lo, x_hi), at(y_hi, x_lo), at(y_hi, x_hi) };
     }
 };
 
