@@ -60,7 +60,7 @@ Mirroring the fast-openISP pipeline, the following stages are planned:
 - [x] **DPC** — Dead Pixel Correction
 - [x] **BLC** — Black Level Compensation
 - [x] **AAF** — Anti-aliasing Filter
-- [ ] **AWB** — Auto White Balance
+- [x] **AWB** — Auto White Balance
 - [ ] **CNF** — Chroma Noise Filtering
 - [ ] **CFA** — Color Filter Array Demosaicing
 - [ ] **CCM** — Color Correction Matrix
