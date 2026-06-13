@@ -41,6 +41,7 @@ int
 main(int argc, char* argv[])
 {
     std::string config_path = (argc > 1) ? argv[1] : "configs/nikon_d3200.toml";
+    std::string raw_path = "./test_raws/test.raw";
 
     IspConfig cfg;
     try
@@ -54,8 +55,6 @@ main(int argc, char* argv[])
     }
 
     std::print("Config loaded: {}\n", config_path);
-
-    std::string raw_path = "./test_raws/test.raw";
 
     PipelineData data;
     try
@@ -118,13 +117,11 @@ main(int argc, char* argv[])
     cudaEventDestroy(stop);
     cudaStreamDestroy(stream);
 
-    save_raw(*data.bayer, "./saved.raw");
-    std::print("Saved        : ./saved.raw\n");
+    save_raw(*data.bayer, "./output/bayer_out.raw");
 
     if (data.rgb_hdr)
     {
-        save_rgb(*data.rgb_hdr, "./saved_rgb.raw");
-        std::print("Saved        : ./saved_rgb.raw\n");
+        save_rgb(*data.rgb_hdr, "./output/rgb_out.raw");
     }
 
     return EXIT_SUCCESS;

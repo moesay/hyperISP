@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <fstream>
+#include <print>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -71,6 +72,7 @@ save_raw(PitchedFrame<uint16_t>& frame, const std::string& path)
             throw std::runtime_error("save_raw: write error at row " + std::to_string(y));
         }
     }
+    std::println("Saved        : {}", path);
 }
 
 template <typename T>
@@ -101,4 +103,5 @@ save_rgb(PitchedFrame<T>& frame, const std::string& path)
             throw std::runtime_error("save_rgb: write error at row " + std::to_string(y));
         }
     }
+    std::println("Saved        : {}", path);
 }
