@@ -1,3 +1,8 @@
+// File: blc.cu
+// Description: BLC CUDA kernel and block implementation
+// Author: Mohamed ElKafafy (m.elsayed4420@gmail.com)
+// Licensed under the GNU General Public License v3.0 (GPL-3.0)
+
 #include <cctype>
 #include <stdexcept>
 

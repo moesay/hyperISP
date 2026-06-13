@@ -1,3 +1,8 @@
+// File: dpc.hpp
+// Description: Defective pixel correction (DPC) ISP block declaration
+// Author: Mohamed ElKafafy (m.elsayed4420@gmail.com)
+// Licensed under the GNU General Public License v3.0 (GPL-3.0)
+
 #pragma once
 
 #include <cstdint>

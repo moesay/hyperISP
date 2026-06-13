@@ -1,3 +1,8 @@
+// File: isp_block.hpp
+// Description: Base interface for ISP pipeline blocks
+// Author: Mohamed ElKafafy (m.elsayed4420@gmail.com)
+// Licensed under the GNU General Public License v3.0 (GPL-3.0)
+
 #pragma once
 
 #include <cuda_runtime.h>

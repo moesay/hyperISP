@@ -1,3 +1,8 @@
+// File: awb.cu
+// Description: AWB CUDA kernel and block implementation
+// Author: Mohamed ElKafafy (m.elsayed4420@gmail.com)
+// Licensed under the GNU General Public License v3.0 (GPL-3.0)
+
 #include <stdexcept>
 
 #include "blocks/awb.hpp"
