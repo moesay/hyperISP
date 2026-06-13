@@ -12,7 +12,7 @@ make_params(const IspConfig& cfg)
     const toml::table* t = cfg.block_params("awb");
     if (!t)
     {
-        throw std::runtime_error("AwbBlock: missing [awb] config sectio");
+        throw std::runtime_error("AwbBlock: missing [awb] config section");
     }
 
     auto get_int = [&](const char* key) -> uint32_t
@@ -42,6 +42,27 @@ make_params(const IspConfig& cfg)
 
 }  // namespace
 
+/*
+   The logic used to get the bayer channel without branching is based on the fact that
+   CUDA threads are contiguous, so we can determine the channel by checking the parity of both
+   indices Each term of these (x&1) and (y&1) will give either 0 or 1; the trick is combining them
+   together.
+
+   x=0   x=1   x=2   x=3   x=4    ...
+   y=0    0     1     0     1     0     <- R  Gr  R  Gr ...
+   y=1    2     3     2     3     2     <- Gb B   Gb B  ...
+   y=2    0     1     0     1     0
+   y=3    2     3     2     3     2
+
+   Ponder the grid above and you will see a pattern. I don't wanna go so verbose but consider the 4
+   possibilities (both even, both odd, x odd; y even, x even; y odd) and you will see the light
+
+   So the way is turning the y (whatever it is) to be the high bit (shift or mull) and glue the x
+   bit as a low bit
+
+   This will give us c = (y & 1) << 1 | (x & 1)
+   Or, c = (y & 1) * 2 + (x & 1)
+*/
 __global__ void
 awb_kernel(FrameView<uint16_t> frame, AwbKernelParams params)
 {
@@ -50,7 +71,7 @@ awb_kernel(FrameView<uint16_t> frame, AwbKernelParams params)
 
     if (x >= frame.width || y >= frame.height)
         return;
-    const uint8_t bayer_channel = (y & 1) * 2 + (x & 1);
+    const uint8_t bayer_channel = (y & 1) << 1 | (x & 1);
 
     if (params.is_rggb)
     {
