@@ -32,7 +32,7 @@ make_params(const IspConfig& cfg)
     kernel_params.bl_b = get_int("bl_b");
     kernel_params.alpha = get_int("alpha");
     kernel_params.beta = get_int("beta");
-    kernel_params.sat_value = static_cast<uint16_t>((1u << cfg.hardware.raw_bit_depth) - 1);
+    kernel_params.sat_value = static_cast<uint32_t>((1u << cfg.hardware.raw_bit_depth) - 1);
 
     struct Pos
     {

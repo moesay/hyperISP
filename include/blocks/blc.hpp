@@ -8,7 +8,7 @@ struct BlcKernelParams
 {
     int32_t bl_r, bl_gr, bl_gb, bl_b;
     int32_t alpha, beta;
-    uint16_t sat_value;
+    uint32_t sat_value;
     // Position of each pixel in the 2x2 bayer tile
     uint8_t r_row, r_col;
     uint8_t gr_row, gr_col;
